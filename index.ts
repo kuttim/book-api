@@ -1,7 +1,9 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { ApolloServer } from "apollo-server-express";
-import schema from "././src/graphql/schema";
+import schema from "./src/graphql/schema";
+import resolvers from "./src/graphql/resolvers";
+import connect from "./src/db/connect";
 dotenv.config();
 
 const app: Express = express();
@@ -9,17 +11,9 @@ const port = process.env.PORT;
 
 async function startServer() {
   const server = new ApolloServer({
-    //schema,
-    typeDefs: `
-    type Query {
-      hello: String
-      }
-      `,
-    resolvers: {
-      Query: {
-        hello: () => "Hello world!",
-      },
-    },
+    schema,
+    typeDefs: schema,
+    resolvers,
     introspection: true,
     formatError: (error) => {
       console.log(error);
@@ -35,6 +29,12 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app: app, path: "/graphql" });
 }
+
+/**
+ * Connect to the database.
+ */
+
+connect();
 
 startServer();
 app.listen(port, () => {

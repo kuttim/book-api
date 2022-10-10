@@ -1,0 +1,6 @@
+type Info {
+  count: Int
+  pages: Int
+  next: Int
+  prev: Int
+}

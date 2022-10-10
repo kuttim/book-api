@@ -1,0 +1,22 @@
+type Book {
+  id: ID!
+  name: String!
+  author: Author!
+
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Books {
+  info: Info!
+  results: [Book]!
+}
+
+input BookCreateInput {
+  name: String!
+  author: ID!
+}
+
+input BookUpdateInput {
+  name: String
+}
