@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { ApolloServer } from "apollo-server-express";
 import schema from "./src/graphql/schema";
 import resolvers from "./src/graphql/resolvers";
-import connect from "./src/db/connect";
 dotenv.config();
 
 const app: Express = express();
