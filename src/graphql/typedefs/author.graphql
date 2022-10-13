@@ -5,3 +5,11 @@ type Author {
   createdAt: Date!
   updatedAt: Date!
 }
+
+input AuthorCreateInput {
+  name: String!
+}
+
+input AuthorUpdateInput {
+  name: String
+}

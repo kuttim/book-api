@@ -12,11 +12,12 @@ datasource db {
 
 model Book {
   id        Int      @id @default(autoincrement())
-  name      String
+  title      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   authorId  Int
   author    Author   @relation(fields: [authorId], references: [id])
+  published Boolean @default(false)
 }
 
 model Author {
@@ -24,5 +25,5 @@ model Author {
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Book      Book[]
+  books     Book[]
 }

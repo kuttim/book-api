@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "fs";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { join } from "path";
-import resolvers from "../graphql/resolvers";
+import { resolvers } from "../graphql/resolvers";
 
 const gqlFiles = readdirSync(join(__dirname, "./typedefs"));
 

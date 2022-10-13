@@ -12,3 +12,11 @@ type Books {
   info: Info!
   results: [Book]!
 }
+
+type Mutation {
+  createBook(book: BookCreateInput!): Book!
+  updateBook(id: ID!, book: BookUpdateInput!): Book!
+
+  createAuthor(author: AuthorCreateInput!): Author!
+  updateAuthor(id: ID!, author: AuthorUpdateInput!): Author!
+}

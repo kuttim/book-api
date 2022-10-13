@@ -1,16 +1,16 @@
-import Author from "../../../db/models/author";
+import { PrismaClient } from "@prisma/client";
 
-const authorQueries = {
+const prisma = new PrismaClient();
+
+export const authorQueries = {
   authors: async () => {
-    const authors = await Author.find();
-
-    return authors;
+    return prisma.author.findMany();
   },
-  author: async (parent: any, { id }: { id: number }) => {
-    const author = await Author.findById(id);
-
-    return author;
+  author: async (_, { author }) => {
+    return prisma.author.findUnique({
+      where: {
+        id: author.id,
+      },
+    });
   },
 };
-
-export default authorQueries;
