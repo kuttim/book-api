@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { ApolloServer } from "apollo-server-express";
 import schema from "./src/graphql/schema";
-//import resolvers from "./src/graphql/resolvers";
+import { resolvers } from "./src/graphql/resolvers";
 dotenv.config();
 
 const app: Express = express();
@@ -12,8 +12,7 @@ async function startServer() {
   const server = new ApolloServer({
     schema,
     typeDefs: schema,
-    //resolvers,
-
+    resolvers,
     introspection: true,
     formatError: (error) => {
       console.log(error);
