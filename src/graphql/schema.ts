@@ -2,19 +2,20 @@ import { readdirSync, readFileSync } from "fs";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { join } from "path";
 import { resolvers } from "../graphql/resolvers";
+import { gql } from "apollo-server-express";
+import { mergeTypeDefs } from "@graphql-tools/merge";
 
-const gqlFiles = readdirSync(join(__dirname, "./typedefs"));
+const typeDefPaths = readdirSync(join(__dirname, "./typedefs"));
 
-let typeDefs = "";
-
-gqlFiles.forEach((file) => {
-  typeDefs += readFileSync(join(__dirname, "./typedefs", file), {
-    encoding: "utf8",
-  });
+let typeDefs = [];
+typeDefPaths.forEach((typeDefPath) => {
+  typeDefs.push(
+    gql(readFileSync(join(__dirname, "./typedefs", typeDefPath), "utf-8"))
+  );
 });
 
 const schema = makeExecutableSchema({
-  typeDefs,
+  typeDefs: mergeTypeDefs(typeDefs),
   resolvers,
 });
 
